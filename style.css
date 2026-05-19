@@ -32,6 +32,10 @@ li {
 .completed {
   text-decoration: line-through;
   color: gray;
+
 }h1 {
   color: blue;
+
+}.container {
+  border: 2px solid blue;
 }
