@@ -33,9 +33,10 @@ li {
   text-decoration: line-through;
   color: gray;
 
-}h1 {
+  h1 {
   color: blue;
+}
 
-}.container {
+.container {
   border: 2px solid blue;
 }
