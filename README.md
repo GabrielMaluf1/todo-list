@@ -9,7 +9,3 @@ Commits organizados
 Pull Requests
 Resolução de conflitos
 Versionamento de código com Git
-
-Autor ;Gabriel Maluf
-
-https://github.com/GabrielMaluf1/todo-list?utm_source=chatgpt.com
