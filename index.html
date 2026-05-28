@@ -1,21 +1,146 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista de Tarefas</title>
+  <title>Organizador de Estudos</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <main class="app" aria-labelledby="app-title">
+    <header class="hero">
+      <div>
+        <span class="tag">Organizador simples</span>
+        <h1 id="app-title">Painel de estudos</h1>
+      </div>
+      <p>Lista, anotações e cálculos no mesmo lugar.</p>
+    </header>
 
-  <div class="container">
-    <h1>Lista de Tarefas</h1>
+    <div class="workspace">
+      <section class="panel tasks-panel">
+        <header class="panel-header">
+          <div>
+            <span class="eyebrow">Tarefas</span>
+            <h2>Lista de Tarefas</h2>
+          </div>
+          <p id="taskCounter">0 tarefas</p>
+        </header>
 
-    <input type="text" id="taskInput" placeholder="Digite uma tarefa">
-    <button onclick="addTask()">Adicionar</button>
+        <form id="taskForm" class="task-form" autocomplete="off">
+          <label for="taskInput">Nova tarefa</label>
+          <div class="input-row">
+            <input id="taskInput" type="text" placeholder="Ex: revisar atividade de Git" maxlength="80">
+            <button type="submit">Adicionar</button>
+          </div>
+          <small id="formMessage" role="status"></small>
+        </form>
 
-    <ul id="taskList"></ul>
-  </div>
+        <div class="toolbar" aria-label="Filtros da lista">
+          <button class="filter active" type="button" data-filter="all">Todas</button>
+          <button class="filter" type="button" data-filter="pending">Pendentes</button>
+          <button class="filter" type="button" data-filter="done">Concluídas</button>
+        </div>
+
+        <ul id="taskList" class="task-list" aria-live="polite"></ul>
+
+        <footer class="panel-actions">
+          <span id="pendingCounter">Nenhuma pendente</span>
+          <button id="clearDoneButton" type="button">Limpar concluídas</button>
+        </footer>
+      </section>
+
+      <section class="panel notes-panel">
+        <header class="panel-header">
+          <div>
+            <span class="eyebrow">Notas</span>
+            <h2>Bloco de Notas</h2>
+          </div>
+          <p id="notesCounter">0 caracteres</p>
+        </header>
+
+        <label for="notesInput">Anotações</label>
+        <textarea id="notesInput" placeholder="Escreva lembretes, ideias ou observações da atividade..."></textarea>
+
+        <footer class="panel-actions">
+          <span id="notesStatus">Salvo automaticamente</span>
+          <button id="clearNotesButton" type="button">Limpar notas</button>
+        </footer>
+      </section>
+
+      <section class="panel calculator-panel">
+        <header class="panel-header">
+          <div>
+            <span class="eyebrow">Cálculos</span>
+            <h2>Calculadora</h2>
+          </div>
+          <select id="angleMode" aria-label="Modo de ângulo">
+            <option value="deg">Graus</option>
+            <option value="rad">Radianos</option>
+          </select>
+        </header>
+
+        <label for="calculatorFunction">Escolher função</label>
+        <select id="calculatorFunction">
+          <option value="">Selecionar</option>
+          <option value="sqrt(">Raiz quadrada</option>
+          <option value="^2">Potência ao quadrado</option>
+          <option value="^">Potência livre</option>
+          <option value="sin(">Seno</option>
+          <option value="cos(">Cosseno</option>
+          <option value="tan(">Tangente</option>
+          <option value="log(">Log base 10</option>
+          <option value="ln(">Log natural</option>
+          <option value="abs(">Valor absoluto</option>
+          <option value="!">Fatorial</option>
+          <option value="pi">Pi</option>
+          <option value="e">Euler</option>
+        </select>
+
+        <div class="calculator-display">
+          <input id="calculatorInput" type="text" inputmode="decimal" aria-label="Expressão da calculadora" placeholder="Digite ou use os botões">
+          <output id="calculatorResult">0</output>
+        </div>
+
+        <div class="calculator-grid" aria-label="Botões da calculadora">
+          <button type="button" data-action="clear">C</button>
+          <button type="button" data-action="backspace">⌫</button>
+          <button type="button" data-value="%">%</button>
+          <button type="button" data-value="/">÷</button>
+          <button type="button" data-value="7">7</button>
+          <button type="button" data-value="8">8</button>
+          <button type="button" data-value="9">9</button>
+          <button type="button" data-value="*">×</button>
+          <button type="button" data-value="4">4</button>
+          <button type="button" data-value="5">5</button>
+          <button type="button" data-value="6">6</button>
+          <button type="button" data-value="-">−</button>
+          <button type="button" data-value="1">1</button>
+          <button type="button" data-value="2">2</button>
+          <button type="button" data-value="3">3</button>
+          <button type="button" data-value="+">+</button>
+          <button type="button" data-value="0">0</button>
+          <button type="button" data-value=".">.</button>
+          <button type="button" data-value="(">(</button>
+          <button type="button" data-value=")">)</button>
+          <button type="button" data-value="sqrt(">√</button>
+          <button type="button" data-value="^">xʸ</button>
+          <button type="button" data-value="sin(">sin</button>
+          <button type="button" data-action="calculate">=</button>
+          <button type="button" data-value="cos(">cos</button>
+          <button type="button" data-value="tan(">tan</button>
+          <button type="button" data-value="log(">log</button>
+          <button type="button" data-value="ln(">ln</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <template id="emptyTemplate">
+    <li class="empty-state">
+      <strong>Nada por aqui ainda.</strong>
+      <span>Adicione uma tarefa para começar.</span>
+    </li>
+  </template>
 
   <script src="script.js"></script>
 </body>
